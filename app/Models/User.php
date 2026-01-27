@@ -53,5 +53,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Receta::class);
     }
-    
+
+    // Relación 1:N - un usuario tiene muchos likes
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+
 }

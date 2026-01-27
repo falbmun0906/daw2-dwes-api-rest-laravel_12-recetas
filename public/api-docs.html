@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍳 API REST de Recetas - Swagger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css">
+    <style>
+        html {
+            box-sizing: border-box;
+            overflow-y: scroll;
+        }
+        * {
+            box-sizing: inherit;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            font-family: sans-serif;
+        }
+        .topbar {
+            background-color: #1e1e1e;
+            padding: 15px 20px;
+            color: #fff;
+            border-bottom: 3px solid #2196F3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .topbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .topbar p {
+            margin: 5px 0 0 0;
+            color: #aaa;
+            font-size: 12px;
+        }
+        .topbar a {
+            color: #2196F3;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .topbar a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div>
+            <h1>🍳 API REST de Recetas</h1>
+            <p>OpenAPI 3.0 Documentation</p>
+        </div>
+        <div>
+            <a href="/api/ping">Ping</a>
+            <a href="https://github.com" target="_blank">GitHub</a>
+        </div>
+    </div>
+
+    <div id="swagger-ui"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const specUrl = window.location.protocol + '//' + window.location.host + '/api/docs/openapi.json';
+
+            console.log('🔍 Cargando especificación desde:', specUrl);
+
+            // Probar primero si el endpoint responde
+            fetch(specUrl)
+                .then(response => {
+                    console.log('✓ Respuesta recibida:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('✓ JSON parseado correctamente');
+                    console.log('OpenAPI version:', data.openapi);
+                    console.log('Título:', data.info.title);
+
+                    // Inicializar Swagger UI
+                    const ui = SwaggerUIBundle({
+                        url: specUrl,
+                        dom_id: '#swagger-ui',
+                        presets: [
+                            SwaggerUIBundle.presets.apis,
+                            SwaggerUIStandalonePreset
+                        ],
+                        layout: "StandaloneLayout",
+                        deepLinking: true,
+                        onComplete: function() {
+                            console.log('✓ Swagger UI cargado correctamente');
+                        }
+                    });
+
+                    window.ui = ui;
+                })
+                .catch(error => {
+                    console.error('❌ Error cargando la especificación:', error);
+                    document.getElementById('swagger-ui').innerHTML =
+                        '<div style="padding: 40px; text-align: center; color: #f44336;">' +
+                        '<h2>Error al cargar la documentación</h2>' +
+                        '<p>' + error.message + '</p>' +
+                        '<p>URL: ' + specUrl + '</p>' +
+                        '<p><a href="' + specUrl + '" target="_blank">Abrir especificación OpenAPI</a></p>' +
+                        '</div>';
+                });
+        });
+    </script>
+</body>
+</html>

@@ -22,11 +22,30 @@ class Receta extends Model
         'descripcion',
         'instrucciones',
         'publicada',
+        'imagen',
     ];
 
     // Relación inversa: una receta pertenece a un usuario
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+
+    // Relación: una receta tiene muchos ingredientes
+    public function ingredientes()
+    {
+        return $this->hasMany(Ingrediente::class);
+    }
+
+    // Relación 1:N - una receta tiene muchos likes
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    // Relación: una receta tiene muchos comentarios
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
     }
 }

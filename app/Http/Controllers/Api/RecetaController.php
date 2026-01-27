@@ -16,7 +16,7 @@ class RecetaController extends Controller
     {
         $query = Receta::query();
 
-        // Búsqueda
+        // Búsqueda por texto
         if ($search = $request->query('q')) {
             $query->where(function ($q) use ($search) {
                 $q->where('titulo', 'ILIKE', "%{$search}%")
@@ -24,14 +24,34 @@ class RecetaController extends Controller
             });
         } //PostgreSQL ✔ (ILIKE)
 
+        // Búsqueda por ingrediente (nuevo)
+        if ($ingrediente = $request->query('ingrediente')) {
+            $query->whereHas('ingredientes', function ($q) use ($ingrediente) {
+                $q->where('nombre', 'ILIKE', "%{$ingrediente}%");
+            });
+        }
+
+        // Filtrar por mínimo de likes (nuevo)
+        if ($minLikes = $request->query('min_likes')) {
+            $query->withCount('likes')
+                  ->having('likes_count', '>=', (int)$minLikes);
+        }
+
+        // Cargar contador de likes
+        $query->withCount('likes');
+
         // Ordenación
-        $allowedSorts = ['titulo', 'created_at'];
+        $allowedSorts = ['titulo', 'created_at', 'likes_count'];
         if ($sort = $request->query('sort')) {
             $direction = str_starts_with($sort, '-') ? 'desc' : 'asc';
             $field = ltrim($sort, '-');
 
             if (in_array($field, $allowedSorts)) {
-                $query->orderBy($field, $direction);
+                if ($field === 'likes_count') {
+                    $query->orderBy('likes_count', $direction);
+                } else {
+                    $query->orderBy($field, $direction);
+                }
             }
         }
 
@@ -49,23 +69,33 @@ class RecetaController extends Controller
             'titulo' => 'required|string|max:200',
             'descripcion' => 'required|string',
             'instrucciones' => 'required|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
         ]);
+
+        $imagenPath = null;
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('recetas', 'public');
+        }
 
         $receta = Receta::create([
             'user_id' => $request->user()->id,
             'titulo' => $data['titulo'],
             'descripcion' => $data['descripcion'],
             'instrucciones' => $data['instrucciones'],
+            'imagen' => $imagenPath,
         ]);
 
         return response()->json($receta, 201);
     }
 
     // Mostrar una receta específica
-    public function show(Receta $receta) //: \Illuminate\Http\JsonResponse
+    public function show(Receta $receta)
     {
-        //return response()->json($receta);
-        return $receta;
+        // Cargar relaciones
+        $receta->load(['ingredientes', 'comentarios.user']);
+        $receta->loadCount('likes');
+
+        return new RecetaResource($receta);
     }
 
     // Actualizar una receta existente
@@ -87,7 +117,17 @@ class RecetaController extends Controller
             'titulo' => 'sometimes|required|string|max:200',
             'descripcion' => 'sometimes|required|string',
             'instrucciones' => 'sometimes|required|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        // Manejar la imagen si se proporciona
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen anterior si existe
+            if ($receta->imagen) {
+                \Storage::disk('public')->delete($receta->imagen);
+            }
+            $data['imagen'] = $request->file('imagen')->store('recetas', 'public');
+        }
 
         $receta->update($data);
 

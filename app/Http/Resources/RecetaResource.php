@@ -21,8 +21,13 @@ class RecetaResource extends JsonResource
             'descripcion' => $this->descripcion,
             'instrucciones' => $this->instrucciones,
             'publicada' => $this->publicada,
+            'imagen' => $this->imagen ? url('storage/' . $this->imagen) : null,
             'user_id' => $this->user_id,
+            'ingredientes' => IngredienteResource::collection($this->whenLoaded('ingredientes')),
+            'comentarios' => ComentarioResource::collection($this->whenLoaded('comentarios')),
+            'likes_count' => $this->when(isset($this->likes_count), $this->likes_count),
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
