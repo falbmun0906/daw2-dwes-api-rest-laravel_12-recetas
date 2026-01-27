@@ -42,7 +42,7 @@ class LikeTest extends TestCase
         $receta = Receta::factory()->create();
 
         // Primero dar like
-        $receta->likes()->attach($user->id);
+        $receta->usuariosQueLesGusto()->attach($user->id);
 
         $response = $this->actingAs($user)->postJson("/api/recetas/{$receta->id}/like");
 
@@ -82,7 +82,7 @@ class LikeTest extends TestCase
 
         // Dar likes
         foreach ($users as $user) {
-            $receta->likes()->attach($user->id);
+            $receta->usuariosQueLesGusto()->attach($user->id);
         }
 
         $response = $this->actingAs($users[0])->getJson("/api/recetas/{$receta->id}/likes");
@@ -98,7 +98,7 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
         $receta = Receta::factory()->create();
 
-        $receta->likes()->attach($user->id);
+        $receta->usuariosQueLesGusto()->attach($user->id);
 
         $response = $this->actingAs($user)->getJson("/api/recetas/{$receta->id}/like/status");
 

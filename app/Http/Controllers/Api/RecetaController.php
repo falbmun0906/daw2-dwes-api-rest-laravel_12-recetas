@@ -31,16 +31,17 @@ class RecetaController extends Controller
             });
         }
 
-        // Filtrar por mínimo de likes (nuevo)
+        // Filtrar por minimo de likes (nuevo)
+        // Usamos whereHas con un count manual para evitar problemas con having en la paginacion
         if ($minLikes = $request->query('min_likes')) {
-            $query->withCount('likes')
-                  ->having('likes_count', '>=', (int)$minLikes);
+            $minLikesInt = (int)$minLikes;
+            $query->whereHas('likes', function ($q) {}, '>=', $minLikesInt);
         }
 
-        // Cargar contador de likes
+        // Cargar contador de likes siempre
         $query->withCount('likes');
 
-        // Ordenación
+        // Ordenacion
         $allowedSorts = ['titulo', 'created_at', 'likes_count'];
         if ($sort = $request->query('sort')) {
             $direction = str_starts_with($sort, '-') ? 'desc' : 'asc';

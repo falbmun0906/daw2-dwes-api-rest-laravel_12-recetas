@@ -37,7 +37,13 @@ class Receta extends Model
         return $this->hasMany(Ingrediente::class);
     }
 
-    // Relación 1:N - una receta tiene muchos likes
+    // Relación N:M - una receta puede tener likes de muchos usuarios
+    public function usuariosQueLesGusto()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
+    // Relación 1:N - una receta tiene muchos likes (acceso directo al modelo Like)
     public function likes()
     {
         return $this->hasMany(Like::class);

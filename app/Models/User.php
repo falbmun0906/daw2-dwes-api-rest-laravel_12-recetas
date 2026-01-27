@@ -15,6 +15,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasRoles,HasApiTokens,HasFactory, Notifiable;
 
+    protected $guard_name = 'sanctum';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -54,7 +56,13 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Receta::class);
     }
 
-    // Relación 1:N - un usuario tiene muchos likes
+    // Relación N:M - un usuario puede dar like a muchas recetas
+    public function recetasLiked()
+    {
+        return $this->belongsToMany(Receta::class, 'likes')->withTimestamps();
+    }
+
+    // Relación 1:N - un usuario tiene muchos likes (acceso directo al modelo Like)
     public function likes()
     {
         return $this->hasMany(Like::class);

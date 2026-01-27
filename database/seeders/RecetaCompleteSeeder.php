@@ -40,7 +40,7 @@ class RecetaCompleteSeeder extends Seeder
         Ingrediente::create(['receta_id' => $tortilla->id, 'nombre' => 'Sal', 'cantidad' => '1', 'unidad' => 'cucharadita']);
 
         // Likes y comentarios
-        $tortilla->likes()->attach([$admin->id, $user->id]);
+        $tortilla->usuariosQueLesGusto()->attach([$admin->id, $user->id]);
         Comentario::create([
             'receta_id' => $tortilla->id,
             'user_id' => $user->id,
@@ -64,7 +64,7 @@ class RecetaCompleteSeeder extends Seeder
         Ingrediente::create(['receta_id' => $paella->id, 'nombre' => 'Tomate', 'cantidad' => '2', 'unidad' => 'ud']);
         Ingrediente::create(['receta_id' => $paella->id, 'nombre' => 'Azafrán', 'cantidad' => '1', 'unidad' => 'pizca']);
 
-        $paella->likes()->attach($admin->id);
+        $paella->usuariosQueLesGusto()->attach($admin->id);
         Comentario::create([
             'receta_id' => $paella->id,
             'user_id' => $admin->id,
@@ -88,7 +88,7 @@ class RecetaCompleteSeeder extends Seeder
         Ingrediente::create(['receta_id' => $gazpacho->id, 'nombre' => 'Aceite de oliva', 'cantidad' => '50', 'unidad' => 'ml']);
         Ingrediente::create(['receta_id' => $gazpacho->id, 'nombre' => 'Vinagre', 'cantidad' => '2', 'unidad' => 'cucharadas']);
 
-        $gazpacho->likes()->attach([$admin->id, $user->id]);
+        $gazpacho->usuariosQueLesGusto()->attach([$admin->id, $user->id]);
         Comentario::create([
             'receta_id' => $gazpacho->id,
             'user_id' => $user->id,
@@ -110,7 +110,7 @@ class RecetaCompleteSeeder extends Seeder
         Ingrediente::create(['receta_id' => $tarta->id, 'nombre' => 'Ralladura de limón', 'cantidad' => '1', 'unidad' => 'ud']);
         Ingrediente::create(['receta_id' => $tarta->id, 'nombre' => 'Azúcar glas', 'cantidad' => '50', 'unidad' => 'g']);
 
-        $tarta->likes()->attach($admin->id);
+        $tarta->usuariosQueLesGusto()->attach($admin->id);
         Comentario::create([
             'receta_id' => $tarta->id,
             'user_id' => $admin->id,
