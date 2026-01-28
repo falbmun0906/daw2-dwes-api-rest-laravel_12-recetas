@@ -388,7 +388,7 @@ Se creo un controlador `SwaggerController` que genera dinamicamente la especific
 
 **Acceso a Swagger UI**:
 ```
-http://localhost/swagger-ui.html
+http://localhost/api-docs.html
 ```
 
 **Acceso a Especificacion JSON**:
