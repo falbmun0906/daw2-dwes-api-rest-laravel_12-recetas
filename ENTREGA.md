@@ -396,6 +396,13 @@ http://localhost/api-docs.html
 http://localhost/api/docs/openapi.json
 ```
 
+**Evidencias de uso de Swagger**:
+
+<img width="1900" height="949" alt="swagger" src="https://github.com/user-attachments/assets/3bfcc88a-d3e1-45cc-8e86-42d95b10b98f" />
+<br></br>
+<img width="1899" height="941" alt="swagger-2" src="https://github.com/user-attachments/assets/d5a6e525-35e4-4303-8022-b3a77693f308" />
+<br></br>
+
 **Endpoints Documentados**:
 
 1. **Autenticacion**:
