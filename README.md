@@ -4,7 +4,7 @@ API REST completa para gestión de recetas con ingredientes, likes y comentarios
 
 ## 🚀 Características Principales
 
-### ✅ Funcionalidades Obligatorias
+### Funcionalidades Obligatorias
 - **CRUD de Recetas** - Crear, leer, actualizar y eliminar recetas
 - **Ingredientes** - Gestión completa de ingredientes por receta
 - **Likes** - Sistema de "me gusta" con toggle
@@ -12,20 +12,20 @@ API REST completa para gestión de recetas con ingredientes, likes y comentarios
 - **Autenticación** - JWT con Laravel Sanctum
 - **Autorización** - Policies y roles (admin/user) con Spatie
 
-### 🎯 Funcionalidades Adicionales
+### Funcionalidades Adicionales
 - **Upload de Imágenes** - Subida y validación de imágenes
 - **Búsquedas Avanzadas** - Filtros por ingrediente, likes, texto
 - **Ordenamiento** - Por popularidad, fecha, título
 - **Tests Completos** - 15+ feature tests
-- **Swagger/OpenAPI** - Documentación interactiva 🆕
+- **Swagger/OpenAPI** - Documentación interactiva
 
-## 📋 Requisitos
+## Requisitos
 
 - Docker Desktop
 - Git
 - HTTPie (opcional, para testing)
 
-## 🔧 Instalación Rápida
+## Instalación Rápida
 
 ```bash
 # 1. Clonar repositorio
@@ -50,14 +50,14 @@ cp .env.example .env
 ./vendor/bin/sail artisan test
 ```
 
-## 📚 Documentación
+## Documentación
 
 - **[ENTREGA.md](ENTREGA.md)** - Documentación completa del proyecto
-- **[SWAGGER.md](SWAGGER.md)** - Documentación interactiva OpenAPI/Swagger 🆕
+- **[SWAGGER.md](SWAGGER.md)** - Documentación interactiva OpenAPI/Swagger
 - **[HTTPIE_COMMANDS.md](HTTPIE_COMMANDS.md)** - Ejemplos de uso con HTTPie
 - **[INSTALACION.md](INSTALACION.md)** - Guía de instalación paso a paso
 
-## 🎨 Swagger UI
+## Swagger UI
 
 Accede a la documentación interactiva con Swagger UI:
 
@@ -74,7 +74,7 @@ En Swagger UI puedes:
 
 **OpenAPI Spec JSON**: http://localhost:8000/api/docs/openapi.json
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Ejecutar todos los tests
@@ -89,14 +89,14 @@ En Swagger UI puedes:
 ./vendor/bin/sail artisan test --coverage
 ```
 
-## 🔐 Usuarios de Prueba
+## Usuarios de Prueba
 
 | Email | Password | Rol |
 |-------|----------|-----|
 | admin@demo.local | password | admin |
 | user@demo.local | password | user |
 
-## 🛣️ Endpoints Principales
+## Endpoints Principales
 
 ### Autenticación
 ```
@@ -138,7 +138,7 @@ PUT    /api/recetas/{id}/comentarios/{comentario}
 DELETE /api/recetas/{id}/comentarios/{comentario}
 ```
 
-## 💡 Ejemplo de Uso
+## Ejemplo de Uso
 
 ```bash
 # 1. Login
@@ -167,7 +167,7 @@ http POST :8000/api/recetas/1/comentarios "Authorization:Bearer $TOKEN" \
 
 Ver más ejemplos en **[HTTPIE_COMMANDS.md](HTTPIE_COMMANDS.md)**
 
-## 🏗️ Tecnologías
+## Tecnologías
 
 - **Laravel 12** - Framework PHP
 - **PostgreSQL** - Base de datos
@@ -177,7 +177,7 @@ Ver más ejemplos en **[HTTPIE_COMMANDS.md](HTTPIE_COMMANDS.md)**
 - **PHPUnit** - Testing
 - **OpenAPI 3.0** - Documentación con Swagger
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 app/
@@ -202,7 +202,7 @@ app/
     └── ComentarioPolicy.php
 ```
 
-## 🎯 Características Implementadas
+## Características Implementadas
 
 - ✅ Ingredientes con CRUD completo
 - ✅ Sistema de likes con toggle
@@ -216,7 +216,7 @@ app/
 - ✅ Seeders con datos de ejemplo
 - ✅ **Documentación Swagger/OpenAPI completa** 🆕
 
-## 🤝 Contribuir
+## Contribuir
 
 1. Fork el proyecto
 2. Crea tu feature branch (`git checkout -b feature/amazing-feature`)
@@ -224,10 +224,10 @@ app/
 4. Push al branch (`git push origin feature/amazing-feature`)
 5. Abre un Pull Request
 
-## 📝 Licencia
+## Licencia
 
 Este proyecto es software de código abierto bajo la licencia MIT.
 
-## 👥 Créditos
+## Créditos
 
 Desarrollado como proyecto educativo para el curso de Desarrollo Web en Entorno Servidor.
