@@ -2,7 +2,7 @@
 
 API REST completa para gestión de recetas con ingredientes, likes y comentarios. Proyecto desarrollado con Laravel 12, PostgreSQL, Sanctum y Spatie Permissions.
 
-## 🚀 Características Principales
+## Características Principales
 
 ### Funcionalidades Obligatorias
 - **CRUD de Recetas** - Crear, leer, actualizar y eliminar recetas
@@ -214,7 +214,7 @@ app/
 - ✅ API Resources
 - ✅ 15+ tests automatizados
 - ✅ Seeders con datos de ejemplo
-- ✅ **Documentación Swagger/OpenAPI completa** 🆕
+- ✅ **Documentación Swagger/OpenAPI completa**
 
 ## Contribuir
 
